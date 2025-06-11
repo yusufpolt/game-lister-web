@@ -1,4 +1,3 @@
-import React from "react";
 import GameDetail from "@/assets/img/game_detail.png";
 
 function GameDetailsPage() {
