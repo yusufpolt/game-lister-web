@@ -22,6 +22,7 @@ import StarIcon from "@/assets/img/rate_star_icon.png";
 import UpIcon from "@/assets/img/up_icon.png";
 import CommentIcon from "@/assets/img/comment_icon.png";
 import SectionSeventh from "@/assets/img/section_seventh.png";
+import { Link } from "react-router";
 
 function HomePage() {
   const { t } = useTranslation();
@@ -42,7 +43,11 @@ function HomePage() {
                 En Popüler Oyunlar
               </p>
             </div>
-            <button className="text-white/50 text-xs">Hepsini Gör</button>
+            <Link to={"/game-lister-web/all-games"}>
+              <button className="text-white/50 text-xs cursor-pointer">
+                Hepsini Gör
+              </button>
+            </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
             {mostPopularGames.map((game) => (
@@ -162,47 +167,51 @@ function HomePage() {
 
 function GameTestCardTwo() {
   return (
-    <div className="flex flex-row justify-between items-center h-[138px] w-[404px] relative bg-gradient-to-r from-amber-600 to-amber-300 py-4 px-8 rounded-[15px] hover:scale-105 transition-all duration-300 cursor-pointer">
-      <img
-        src={CharacterTwo}
-        alt="Character One"
-        className="absolute top-[-26px] left-[-60px]"
-      />
+    <Link to={"/game-lister-web/game-test"}>
+      <div className="flex flex-row justify-between items-center h-[138px] w-[404px] relative bg-gradient-to-r from-amber-600 to-amber-300 py-4 px-8 rounded-[15px] hover:scale-105 transition-all duration-300 cursor-pointer">
+        <img
+          src={CharacterTwo}
+          alt="Character One"
+          className="absolute top-[-26px] left-[-60px]"
+        />
 
-      <div className="flex flex-col gap-2 w-[70%] ml-10">
-        <div className="flex flex-row gap-2 items-center rounded-[5px]">
-          <div className="w-[5px] h-[16px] bg-white" />
-          <p className="text-white text-xl font-bold">Oyun Karakteri Testi</p>
+        <div className="flex flex-col gap-2 w-[70%] ml-10">
+          <div className="flex flex-row gap-2 items-center rounded-[5px]">
+            <div className="w-[5px] h-[16px] bg-white" />
+            <p className="text-white text-xl font-bold">Oyun Karakteri Testi</p>
+          </div>
+          <p className="text-white/80">
+            Testi çöz ve hangi oyun karakteri olduğunu bul!
+          </p>
         </div>
-        <p className="text-white/80">
-          Testi çöz ve hangi oyun karakteri olduğunu bul!
-        </p>
+        <ArrowRight size={24} width={24} height={24} className="text-white" />
       </div>
-      <ArrowRight size={24} width={24} height={24} className="text-white" />
-    </div>
+    </Link>
   );
 }
 
 function GameTestCardOne() {
   return (
-    <div className="flex flex-row justify-between items-center h-[138px] w-[404px] relative bg-gradient-to-r from-purple-600 to-purple-400 py-4 px-8 rounded-[15px] hover:scale-105 transition-all duration-300 cursor-pointer">
-      <img
-        src={CharacterOne}
-        alt="Character One"
-        className="absolute top-[-26px] left-[-40px]"
-      />
+    <Link to={"/game-lister-web/game-test"}>
+      <div className="flex flex-row justify-between items-center h-[138px] w-[404px] relative bg-gradient-to-r from-purple-600 to-purple-400 py-4 px-8 rounded-[15px] hover:scale-105 transition-all duration-300 cursor-pointer">
+        <img
+          src={CharacterOne}
+          alt="Character One"
+          className="absolute top-[-26px] left-[-40px]"
+        />
 
-      <div className="flex flex-col gap-2 w-[70%] ml-10">
-        <div className="flex flex-row gap-2 items-center rounded-[5px]">
-          <div className="w-[5px] h-[16px] bg-white" />
-          <p className="text-white text-xl font-bold">Oyun Karakteri Testi</p>
+        <div className="flex flex-col gap-2 w-[70%] ml-10">
+          <div className="flex flex-row gap-2 items-center rounded-[5px]">
+            <div className="w-[5px] h-[16px] bg-white" />
+            <p className="text-white text-xl font-bold">Oyun Karakteri Testi</p>
+          </div>
+          <p className="text-white/80">
+            Testi çöz ve hangi oyun karakteri olduğunu bul!
+          </p>
         </div>
-        <p className="text-white/80">
-          Testi çöz ve hangi oyun karakteri olduğunu bul!
-        </p>
+        <ArrowRight size={24} width={24} height={24} className="text-white" />
       </div>
-      <ArrowRight size={24} width={24} height={24} className="text-white" />
-    </div>
+    </Link>
   );
 }
 

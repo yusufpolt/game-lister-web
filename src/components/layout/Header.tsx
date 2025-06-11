@@ -14,26 +14,24 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageToggle } from "../LanguageToggle";
 import NavbarItem from "./navbar/NavbarItem";
+import { Link } from "react-router";
 
 const GamesRoutes = [
   {
-    path: "/all-games",
+    path: "/game-lister-web/all-games",
     name: "Tüm Oyunlar",
   },
   {
-    path: "/best-100",
+    path: "/game-lister-web/top-100",
     name: "En iyi 100",
   },
+
   {
-    path: "/fighting-games",
-    name: "Dövüş oyunları",
-  },
-  {
-    path: "/most-popular",
+    path: "/game-lister-web/most-popular",
     name: "En popüler",
   },
   {
-    path: "/coming-soon",
+    path: "/game-lister-web/upcoming",
     name: "Yakında Çıkacak",
   },
 ];
@@ -125,23 +123,28 @@ function Header() {
     >
       <div className="container mx-auto flex items-center justify-between py-5 max-md:px-6">
         {/* Logo */}
-        <img src={logo} alt="logo" className="w-36 h-9" />
+        <Link to="/game-lister-web/">
+          <img src={logo} alt="logo" className="w-36 h-9" />
+        </Link>
         {/* Search */}
         <SearchInput />
         {/* Mobile Menu */}
         <div className="flex flex-row items-center gap-4">
           <MobileMenu />
           <MenuComponent />
-
-          <Button className="bg-[#5739F2] px-8 rounded-4xl py-4 hover:bg-[#5739F2]/80 cursor-pointer max-md:hidden">
-            {t("common.register")}
-          </Button>
-          <Button
-            variant="outline"
-            className="border-[#5739F2] max-md:hidden px-8 py-4 bg-transparent text-white rounded-4xl hover:bg-transparent hover:text-white cursor-pointer"
-          >
-            {t("common.login")}
-          </Button>
+          <Link to="/game-lister-web/register">
+            <Button className="bg-[#5739F2] px-8 rounded-4xl py-4 hover:bg-[#5739F2]/80 cursor-pointer max-md:hidden">
+              {t("common.register")}
+            </Button>
+          </Link>
+          <Link to="/game-lister-web/login">
+            <Button
+              variant="outline"
+              className="border-[#5739F2] max-md:hidden px-8 py-4 bg-transparent text-white rounded-4xl hover:bg-transparent hover:text-white cursor-pointer"
+            >
+              {t("common.login")}
+            </Button>
+          </Link>
           <LanguageToggle />
         </div>
       </div>
@@ -157,13 +160,15 @@ const NavCard = ({
   description: string;
 }) => {
   return (
-    <div className="flex flex-col gap-2 p-4 w-[373px] h-[138px] bg-[#5739F2] rounded-[15px] cursor-pointer hover:scale-105 transition-all duration-300">
-      <p className="text-white text-xl font-bold">{title}</p>
-      <div className="flex flex-row justify-between gap-2">
-        <p className="text-white/60 whitespace-pre-line">{description}</p>
-        <ArrowRight size={24} width={24} height={24} className="text-white" />
+    <Link to={"/game-lister-web/game-test"}>
+      <div className="flex flex-col gap-2 p-4 w-[373px] h-[138px] bg-[#5739F2] rounded-[15px] cursor-pointer hover:scale-105 transition-all duration-300">
+        <p className="text-white text-xl font-bold">{title}</p>
+        <div className="flex flex-row justify-between gap-2">
+          <p className="text-white/60 whitespace-pre-line">{description}</p>
+          <ArrowRight size={24} width={24} height={24} className="text-white" />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

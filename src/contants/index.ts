@@ -12,6 +12,7 @@ const carouselNews = [
     id: 1,
     url: News,
     text: "VALORANT 10.07 Yama Notları",
+    link: "/game-lister-web/yama-notes",
     description:
       "Ajanlara ve oyun arayüzüne yönelik giderilen hatalar, konsol için yeni zaman çizelgesi görüntüleme seçeneği ve dahası.",
   },
@@ -19,6 +20,7 @@ const carouselNews = [
     id: 1,
     url: News,
     text: "VALORANT 10.07 Yama Notları",
+    link: "/game-lister-web/yama-notes",
     description:
       "Ajanlara ve oyun arayüzüne yönelik giderilen hatalar, konsol için yeni zaman çizelgesi görüntüleme seçeneği ve dahası.",
   },
@@ -26,6 +28,7 @@ const carouselNews = [
     id: 1,
     url: News,
     text: "VALORANT 10.07 Yama Notları",
+    link: "/game-lister-web/yama-notes",
     description:
       "Ajanlara ve oyun arayüzüne yönelik giderilen hatalar, konsol için yeni zaman çizelgesi görüntüleme seçeneği ve dahası.",
   },
