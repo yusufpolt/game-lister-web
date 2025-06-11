@@ -7,7 +7,7 @@ import * as Slider from "@radix-ui/react-slider";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
-function AllGamesPage() {
+function Top100GamesPage() {
   const [rating, setRating] = useState([0]);
   const [multiplayerChecked, setMultiplayerChecked] = useState(false);
   const [singleplayerChecked, setSingleplayerChecked] = useState(false);
@@ -175,4 +175,4 @@ function PopularGamesCard({
   );
 }
 
-export default AllGamesPage;
+export default Top100GamesPage;
