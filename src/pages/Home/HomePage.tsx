@@ -1,10 +1,19 @@
 import CharacterOne from "@/assets/img/character_one.png";
 import CharacterTwo from "@/assets/img/character_two.png";
+import CommentIcon from "@/assets/img/comment_icon.png";
+import PopularityIcon from "@/assets/img/popularity_icon.png";
+import StarIcon from "@/assets/img/rate_star_icon.png";
+import ReisterBG from "@/assets/img/register_bg.png";
+import RegisterPlusIcon from "@/assets/img/register_plus_icon.png";
+import SectionSeventh from "@/assets/img/section_seventh.png";
+import SectionThird from "@/assets/img/section_third.png";
 import StreamerOne from "@/assets/img/streamer_one.png";
-import StreamerTwo from "@/assets/img/streamer_two.png";
 import StreamerThree from "@/assets/img/streamer_three.png";
+import StreamerTwo from "@/assets/img/streamer_two.png";
+import UpIcon from "@/assets/img/up_icon.png";
 import GameCard from "@/components/GameCard";
 import { ImageCarousel } from "@/components/ImageCarousel";
+import { Button } from "@/components/ui/button";
 import {
   carouselNews,
   mostPopularGames,
@@ -12,20 +21,12 @@ import {
   popularGames,
 } from "@/contants";
 import { ArrowRight, Plus } from "lucide-react";
-import ReisterBG from "@/assets/img/register_bg.png";
-import RegisterPlusIcon from "@/assets/img/register_plus_icon.png";
-import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
-import SectionThird from "@/assets/img/section_third.png";
-import PopularityIcon from "@/assets/img/popularity_icon.png";
-import StarIcon from "@/assets/img/rate_star_icon.png";
-import UpIcon from "@/assets/img/up_icon.png";
-import CommentIcon from "@/assets/img/comment_icon.png";
-import SectionSeventh from "@/assets/img/section_seventh.png";
 import { Link } from "react-router";
 
 function HomePage() {
   const { t } = useTranslation();
+
   return (
     <div className="flex flex-col">
       {/* First Section */}
