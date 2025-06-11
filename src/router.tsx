@@ -4,7 +4,7 @@ import App from "./App";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/game-lister-web/",
     element: <App />,
     children: [
       {
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/all-games",
+        path: "/game-lister-web/all-games",
         element: <AllGamesPage />,
       },
 
