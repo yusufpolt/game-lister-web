@@ -1,9 +1,9 @@
 {
+  "homepage": "https://yusufpolt.github.io/game-lister-web",
   "name": "game-lister-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yusufpolt.github.io/game-lister-web",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
