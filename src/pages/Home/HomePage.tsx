@@ -14,18 +14,21 @@ import UpIcon from "@/assets/img/up_icon.png";
 import GameCard from "@/components/GameCard";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { Button } from "@/components/ui/button";
-import {
-  carouselNews,
-  mostPopularGames,
-  newGamesComingSoon,
-  popularGames,
-} from "@/contants";
+import { carouselNews } from "@/contants";
+import { useMostPopularGames } from "@/hooks/useMostPopularGames";
+import { useNewGamesComingSoon } from "@/hooks/useNewGamesComingSoon";
+import { usePopularGames } from "@/hooks/usePopularGames";
 import { ArrowRight, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 
 function HomePage() {
   const { t } = useTranslation();
+  const { data: mostPopularGamesData } = useMostPopularGames();
+  const { data: newGamesComingSoonData } = useNewGamesComingSoon();
+  const { data: popularGamesData } = usePopularGames();
 
   return (
     <div className="flex flex-col">
@@ -51,15 +54,8 @@ function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-            {mostPopularGames.map((game) => (
-              <GameCard
-                key={game.id}
-                popularity={game.popularity}
-                name={game.name}
-                types={game.types}
-                rate={game.rate}
-                image={game.image}
-              />
+            {mostPopularGamesData?.results.map((game) => (
+              <GameCard key={game.id} game={game} />
             ))}
           </div>
         </div>
@@ -127,13 +123,14 @@ function HomePage() {
         </p>
 
         <div className="grid xl:grid-cols-2 grid-cols-1 gap-4 mt-14 w-full">
-          {newGamesComingSoon.map((game) => (
+          {newGamesComingSoonData?.results.map((game) => (
             <NewGamesComingSoonCard
               key={game.id}
+              id={game.id}
               name={game.name}
-              types={game.types}
-              image={game.image}
-              info={game.info}
+              types={game.genres.map((genre) => genre.name).join(", ")}
+              image={game.background_image}
+              info={game.released}
             />
           ))}
         </div>
@@ -149,13 +146,16 @@ function HomePage() {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-14 w-full">
-          {popularGames.map((game) => (
+          {popularGamesData?.results.map((game) => (
             <PopularGamesCard
               key={game.id}
+              id={game.id}
               name={game.name}
-              types={game.types}
-              image={game.image}
-              info={game.info}
+              types={game.genres.map((genre) => genre.name).join(", ")}
+              image={game.background_image}
+              rating={game.rating}
+              metacritic={game.metacritic ?? 0}
+              reviews_count={game.reviews_count}
             />
           ))}
         </div>
@@ -217,32 +217,50 @@ function GameTestCardOne() {
 }
 
 function NewGamesComingSoonCard({
+  id,
   name,
   types,
   image,
   info,
 }: {
+  id: number;
   name: string;
   types: string;
   image: string;
   info: string;
 }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/game-lister-web/game-details/${id}`);
+  };
+
+  const date = new Date(info);
+  const day = format(date, "d");
+  const month = format(date, "MMMM", { locale: tr });
+  const year = format(date, "yyyy");
+
   return (
-    <div className="flex flex-row items-center w-full p-4 justify-between bg-white/5 rounded-xl">
+    <div
+      className="flex flex-row items-center w-full p-4 justify-between bg-white/5 rounded-xl cursor-pointer"
+      onClick={handleClick}
+    >
       <div className="flex flex-row gap-4">
-        <img src={image} alt="Game Image" className="w-20 h-24 rounded-md" />
+        <img
+          src={image}
+          alt="Game Image"
+          className="w-20 h-24 rounded-md object-cover"
+        />
         <div className="flex flex-col gap-1">
           <p className="text-white text-lg font-bold">{name}</p>
           <p className="text-white/50 text-xs">{types}</p>
-          <p className="text-white/50 text-xs">{info}</p>
         </div>
       </div>
       <div className="flex flex-col items-center gap-2 justify-center relative">
         <img src={PopularityIcon} alt="Popularity Icon" className="w-20 h-20" />
         <div className="flex flex-col items-end justify-center absolute">
-          <p className="text-white text-base font-bold">14</p>
-          <p className="text-white/50 text-sm">Mayıs</p>
-          <p className="text-white/20 text-xs">2024</p>
+          <p className="text-white text-base font-bold">{day}</p>
+          <p className="text-white/50 text-sm">{month}</p>
+          <p className="text-white/20 text-xs">{year}</p>
         </div>
       </div>
     </div>
@@ -250,36 +268,53 @@ function NewGamesComingSoonCard({
 }
 
 function PopularGamesCard({
+  id,
   name,
   types,
   image,
-  info,
+  rating,
+  metacritic,
+  reviews_count,
 }: {
+  id: number;
   name: string;
   types: string;
   image: string;
-  info: string;
+  rating: number;
+  metacritic: number;
+  reviews_count: number;
 }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/game-lister-web/game-details/${id}`);
+  };
   return (
-    <div className="flex flex-row gap-2 bg-white/5 rounded-xl p-4 relative w-full">
-      <img src={image} alt="Game Image" className="w-20 h-24 rounded-md" />
+    <div
+      className="flex flex-row gap-2 bg-white/5 rounded-xl p-4 relative w-full cursor-pointer"
+      onClick={handleClick}
+    >
+      <img
+        src={image}
+        alt="Game Image"
+        className="w-20 h-24 rounded-md object-cover"
+      />
       <div className="flex flex-col">
         <p className="text-white text-lg font-bold">{name}</p>
-        <p className="text-white/50 text-xs">{types}</p>
-        <p className="text-white/50 text-xs mb-4">{info}</p>
+        <p className="text-white/50 text-xs mb-4">{types}</p>
+        {/* <p className="text-white/50 text-xs mb-4">{info}</p> */}
 
         <div className="flex flex-row gap-2 items-center">
           <div className="flex flex-row items-center gap-1">
             <img src={StarIcon} alt="Star Icon" className="w-5 h-4 " />
-            <p className="text-white text-[10px]">9.2</p>
+            <p className="text-white text-[10px]">{metacritic}</p>
           </div>
           <div className="flex flex-row items-center gap-1">
             <img src={UpIcon} alt="Star Icon" className="w-5 h-4 " />
-            <p className="text-white text-[10px]">9.2</p>
+            <p className="text-white text-[10px]">{rating}</p>
           </div>
           <div className="flex flex-row items-center gap-1">
             <img src={CommentIcon} alt="Star Icon" className="w-5 h-4 " />
-            <p className="text-white text-[10px]">9.2</p>
+            <p className="text-white text-[10px]">{reviews_count}</p>
           </div>
         </div>
       </div>

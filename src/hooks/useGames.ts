@@ -60,13 +60,14 @@ export interface Game {
   reviews_text_count: string;
   added: number;
   added_by_status: AddedByStatus;
-  metacritic: number;
+  metacritic?: number;
   playtime: number;
   suggestions_count: number;
   updated: string;
   esrb_rating: EsrbRating;
   platforms: PlatformInfo[];
   genres: Genre[];
+  reviews_count: number;
 }
 
 interface UseGamesReturn {
@@ -84,7 +85,7 @@ interface UseGamesParams {
   pageSize?: number;
   genres?: string[];
   tags?: string[];
-  metacritic?: number;
+  metacritic?: string;
 }
 
 export const useGames = ({
@@ -117,7 +118,7 @@ export const useGames = ({
       }
 
       if (metacritic) {
-        params.append("metacritic", metacritic.toString());
+        params.append("metacritic", metacritic);
       }
 
       return getAllGames(params);

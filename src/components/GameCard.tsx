@@ -1,42 +1,51 @@
 import PopularityIcon from "@/assets/img/popularity_icon.png";
-import StarIcon from "@/assets/img/rate_star_icon.png";
-import { Link } from "react-router";
+import UpIcon from "@/assets/img/up_icon.png";
+import type { Game } from "@/hooks/useGames";
+import { useNavigate } from "react-router";
 
-interface GameCardProps {
-  popularity: number;
-  name: string;
-  types: string;
-  rate: string;
-  image: string;
-}
+function GameCard({ game }: { game: Game }) {
+  const navigate = useNavigate();
 
-function GameCard({ popularity, name, types, rate, image }: GameCardProps) {
+  const handleClick = () => {
+    navigate(`/game-lister-web/game-details/${game.id}`);
+  };
   return (
-    <Link to={"/game-lister-web/game-details"}>
-      <div className="flex flex-row justify-between items-center px-4 py-2 bg-white/5 rounded-xl">
-        <div className="flex flex-row gap-2">
-          <img src={image} alt="Game Image" className="w-20 h-24 rounded-md" />
-          <div className="flex flex-col gap-2">
-            <p className="text-white text-lg font-bold">{name}</p>
-            <p className="text-white/50 text-sm">{types}</p>
-            <div className="flex flex-row items-center gap-2">
-              <img src={StarIcon} alt="Star Icon" className="w-4 h-4" />
-              <p className="text-white text-xs">{rate}</p>
-            </div>
+    <div
+      className="flex flex-row justify-between items-center px-4 py-2 bg-white/5 rounded-xl cursor-pointer"
+      onClick={handleClick}
+    >
+      <div className="flex flex-row gap-2">
+        <img
+          src={game.background_image}
+          alt="Game Image"
+          className="w-20 h-24 rounded-md object-cover"
+        />
+        <div className="flex flex-col gap-2">
+          <p className="text-white text-lg font-bold">{game.name}</p>
+          <p className="text-white/50 text-sm">
+            {game.genres.map((genre) => genre.name).join(", ")}
+          </p>
+          <div className="flex flex-row items-center gap-2">
+            <img
+              src={UpIcon}
+              alt="Star Icon"
+              className="w-4 h-4 object-contain"
+            />
+            <p className="text-white text-xs">{game.rating}</p>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2 justify-center relative">
-          <img
-            src={PopularityIcon}
-            alt="Popularity Icon"
-            className="w-10 h10"
-          />
-          <p className="text-white text-base font-bold absolute">
-            {popularity}
-          </p>
-        </div>
       </div>
-    </Link>
+      <div className="flex flex-row items-center gap-2 justify-center relative">
+        <img
+          src={PopularityIcon}
+          alt="Popularity Icon"
+          className="w-10 h10 object-cover"
+        />
+        <p className="text-white text-base font-bold absolute">
+          {game.metacritic}
+        </p>
+      </div>
+    </div>
   );
 }
 

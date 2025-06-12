@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
         element: <GameTestPage />,
       },
       {
-        path: "/game-lister-web/game-details",
+        path: "/game-lister-web/game-details/:id",
         element: <GameDetailsPage />,
       },
 

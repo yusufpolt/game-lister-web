@@ -18,6 +18,7 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useGenres } from "@/hooks/useGenres";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router";
 
 function AllGamesPage() {
   const [rating, setRating] = useState([0, 100]);
@@ -28,7 +29,7 @@ function AllGamesPage() {
   const [filters, setFilters] = useState<{
     genres: string[];
     tags: string[];
-    metacritic: string | undefined;
+    metacritic?: string;
   }>({
     genres: [],
     tags: [],
@@ -69,10 +70,7 @@ function AllGamesPage() {
     setFilters({
       genres: selectedGenres,
       tags,
-      metacritic:
-        rating[0] > 0 || rating[1] < 100
-          ? `${rating[0]},${rating[1]}`
-          : undefined,
+      metacritic: rating[0] > 0 || rating[1] < 100 ? `${rating[0]},${rating[1]}` : undefined,
     });
   };
 
@@ -237,8 +235,14 @@ function AllGamesPage() {
 }
 
 function GameCard({ game }: { game: Game }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/game-lister-web/game-details/${game.id}`);
+  };
+
   return (
-    <div className="flex flex-row gap-2 bg-white/5 rounded-xl p-4 relative w-full">
+    <div className="flex flex-row gap-2 bg-white/5 rounded-xl p-4 relative w-full cursor-pointer" onClick={handleClick}>
       <img
         src={game.background_image}
         alt={game.name}
@@ -253,16 +257,16 @@ function GameCard({ game }: { game: Game }) {
 
         <div className="flex flex-row gap-2 items-center">
           <div className="flex flex-row items-center gap-1">
-            <img src={StarIcon} alt="Star Icon" className="w-5 h-4" />
-            <p className="text-white text-[10px]">{game.rating}</p>
-          </div>
-          <div className="flex flex-row items-center gap-1">
-            <img src={UpIcon} alt="Up Icon" className="w-5 h-4" />
+            <img src={StarIcon} alt="Star Icon" className="w-5 h-4 object-contain" />
             <p className="text-white text-[10px]">{game.metacritic}</p>
           </div>
           <div className="flex flex-row items-center gap-1">
-            <img src={CommentIcon} alt="Comment Icon" className="w-5 h-4" />
-            <p className="text-white text-[10px]">{game.ratings_count}</p>
+            <img src={UpIcon} alt="Up Icon" className="w-5 h-4 object-contain" />
+            <p className="text-white text-[10px]">{game.rating}</p>
+          </div>
+          <div className="flex flex-row items-center gap-1">
+            <img src={CommentIcon} alt="Comment Icon" className="w-5 h-4 object-contain" />
+            <p className="text-white text-[10px]">{game.reviews_count}</p>
           </div>
         </div>
       </div>

@@ -6,15 +6,14 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ArrowRight, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { LanguageToggle } from "../LanguageToggle";
 import NavbarItem from "./navbar/NavbarItem";
-import { Link } from "react-router";
 
 const GamesRoutes = [
   {
@@ -188,9 +187,6 @@ const MenuComponent = () => {
           className="w-screen mt-6 border-0 bg-[#090909]/95 rounded-none pt-28 pb-32 "
         >
           <div className="flex flex-col gap-4 container mx-auto">
-            <DropdownMenuLabel>
-              <img src={logo} alt="logo" className="w-36 h-9" />
-            </DropdownMenuLabel>
             <div className="flex flex-row justify-between">
               <NavbarItem section="Kategoriler" items={GamesCategoriesRoutes} />
               <div className="w-[1px] h-[400px] bg-white/10 mx-8" />
