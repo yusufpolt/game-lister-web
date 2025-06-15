@@ -39,7 +39,7 @@ function GameCard({ game }: { game: Game }) {
         <img
           src={PopularityIcon}
           alt="Popularity Icon"
-          className="w-10 h10 object-cover"
+          className="w-10 h-10 object-cover"
         />
         <p className="text-white text-base font-bold absolute">
           {game.metacritic}
